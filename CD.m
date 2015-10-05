@@ -28,7 +28,7 @@ switch test
         kiomega=0;
         kdomega=1.5;
         Vr = 1;
-        Initial_Position = [0,0] %[xo,yo]
+        Initial_Position = [500,500] %[xo,yo]
         Destination = [1000,1000] % [xf,yf]
         Initial_Heading = -pi/4; %psio
         AutoPilot = tf([1],[1 1]);
@@ -36,10 +36,12 @@ switch test
         
         %Obstacle
         Initial_Pos_Obs = [0,500] %[xo,yo]
-        Destination_Obs = [1000,0] % [xf,yf]
+        Destination_Obs = [1000,200] % [xf,yf]
         Initial_Head_Obs = -3*pi/4; %psio
         lambda_vec_0 = Initial_Pos_Obs - Initial_Position;
         lambda_0 = atan2(lambda_vec_0(2),lambda_vec_0(1));
+        
+   
         
     case 2
         K_eta = 0.5;
@@ -77,6 +79,25 @@ switch test
         Initial_Pos_Obs = [500,500] %[xo,yo]
         Destination_Obs = [0,0] % [xf,yf]
         Initial_Head_Obs = -pi/4-pi/2; %psio
+        lambda_vec_0 = Initial_Pos_Obs - Initial_Position;
+        lambda_0 = atan2(lambda_vec_0(2),lambda_vec_0(1));
+        
+         case 4
+        K_eta = 1;
+        kpomega=1;
+        kiomega=0;
+        kdomega=1.5;
+        Vr = 1;
+        Initial_Position = [0,0] %[xo,yo]
+        Destination = [1000,1000] % [xf,yf]
+        Initial_Heading = -pi/4; %psio
+        AutoPilot = tf([1],[1 1]);
+        V_obs_max =20;
+        
+        %Obstacle
+        Initial_Pos_Obs = [0,500] %[xo,yo]
+        Destination_Obs = [1000,0] % [xf,yf]
+        Initial_Head_Obs = -3*pi/4; %psio
         lambda_vec_0 = Initial_Pos_Obs - Initial_Position;
         lambda_0 = atan2(lambda_vec_0(2),lambda_vec_0(1));
         
@@ -123,6 +144,7 @@ if 1
             plot(Xr(1:k),Yr(1:k),'b')
             hold on
             plot(Xr(k),Yr(k),'b*')
+            plotcircle(100,[Xr(k) Yr(k)]);
         else
             if flaglatch ==0
                CAon = time(k); 
@@ -132,6 +154,7 @@ if 1
             plot(Xr(1:k),Yr(1:k),'g')
             hold on
             plot(Xr(k),Yr(k),'g*')
+            plotcircle(100,[Xr(k) Yr(k)]);
         end
         
         plot(Xo(1:k),Yo(1:k),'r')
