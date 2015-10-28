@@ -29,9 +29,9 @@ switch test
         kiomega=0;
         kdomega=1.5;
         Vr = 1;
-        Initial_Position = [500,800] %[xo,yo]
-        Destination = [1000,1000] % [xf,yf]
-        Initial_Heading = -pi/4; %psio
+        Initial_Position = [500,0] %[xo,yo]
+        Destination = [500,1000] % [xf,yf]
+        Initial_Heading = -0*pi/4; %psio
         AutoPilot = tf([1],[1 1]);
         V_obs_max =20;
         
