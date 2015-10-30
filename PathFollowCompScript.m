@@ -4,11 +4,11 @@ Initial_Position = [-80 -100];
 Initial_Heading = -pi/4;
 Initial_Position_O = [100 300];
 Initial_Position_O = [-300 -200];
-K_eta = 0.2;
+K_eta = 0.21;
  lambda_vec_0 = Initial_Position_O - Initial_Position;
  lambda_0 = atan2(lambda_vec_0(2),lambda_vec_0(1));
 
-rangethresh = 150;
+rangethresh = 50;
 
 
 sim('PathFollowComp.slx')
@@ -29,29 +29,33 @@ Yo = Obstacle.signals.values(:,2);
 Xnr = NewRabbit.signals.values(:,1);
 Ynr = NewRabbit.signals.values(:,2);
 
-jump = 50;
+jump = 20;
 time = Rabbit.time;
 %%
+start = 15000;
 figure;
-for k=1:length(Rabbit.signals.values(:,1))/jump
+for k=(20000/jump):length(Rabbit.signals.values(:,1))/jump
 j = k*jump;
-plot(Xnr(1:j),Ynr(1:j),'m')
+plot(Xnr(start:j),Ynr(start:j),'m')
  hold on;
  if flag(j) == 0
-plot(Xt(1:j),Yt(1:j),'r')
+plot(Xt(start:j),Yt(start:j),'r')
  else
-     plot(Xt(1:j),Yt(1:j),'r--')
+     plot(Xt(start:j),Yt(start:j),'r--')
  end
  
  
 if flag2(j) == 0
-    plot(Xa(1:j),Ya(1:j),'g')
+    plot(Xa(start:j),Ya(start:j),'g')
+elseif flag2(j) == 1
+    plot(Xa(start:j),Ya(start:j),'g--')
 else
-    plot(Xa(1:j),Ya(1:j),'g--')
+    plot(Xa(start:j),Ya(start:j),'g--','LineWidth',2.5)
 end
-plot(Xr(1:j),Yr(1:j),'b--')
-plot(Xo(1:j),Yo(1:j),'k')
+plot(Xr(start:j),Yr(start:j),'b--')
+plot(Xo(start:j),Yo(start:j),'k')
 axis([-300 300 -300 300])
+%axis([-150 0 -200 150])
 text(0,300,['t =',num2str(time(j),'%4.1f'),'s'],...
             'VerticalAlignment','middle',...
             'HorizontalAlignment','center',...
